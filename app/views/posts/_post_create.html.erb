@@ -1,0 +1,11 @@
+<div class = 'card'>
+    <div class='card-body'>
+        <form action = '/post/create' method = 'post'>
+            <h5 class='card-title'>Создать пост</h5>
+            <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
+            <input type = 'heading' name = post[heading] placeholder = 'Заголовок'>
+            <input type = 'text' name = post[text] placeholder = 'Текст'><br>
+            <input type = 'submit' name = 'submit' value = 'Создать'>
+        </form>
+    </div>
+</div>

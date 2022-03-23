@@ -1,0 +1,13 @@
+<div style='padding: 30px 0 0;'>
+    <%= render partial: "users/user_pattern", locals: { id: params[:id]}%>
+</div>
+<% if @user.status != 'reader' && @user.id == session[:user_id]%>
+    <div style='padding: 30px 0 0;'>
+        <%= render partial: "posts/post_create", locals: { id: params[:id]}%>
+    </div>
+<% end %>
+<% @posts.reverse_each do |post|%>
+    <div style='padding: 30px 0 0;'>
+        <%= render partial: "posts/post_pattern", locals: { id: post.id}%>
+    </div>
+<% end %>

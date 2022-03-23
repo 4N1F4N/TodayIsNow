@@ -1,0 +1,15 @@
+<% post = Post.find_by(id:id) %>
+<% user = User.find(post.user_id) %>
+<div class = 'card'>
+    <div class='card-body'>
+        <% if post %>
+            <h5 class='card-title'><%= post.heading%></h5>
+            <p class='card-text'><%= post.text%></p>
+            <%= link_to 'Ссылка', "/post/#{post.id}" %>
+            <p>Пост от: <%= link_to "#{user.login}", "/user/#{post.user_id}" %></p>
+            <p class='card-text'><%= post.created_at%></p>
+        <% else %>
+            <h5 class='card-title'>Такой пост не существует</h5>
+        <% end %>
+    </div>
+</div>
