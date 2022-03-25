@@ -1,11 +1,10 @@
 <% last_id = Post.maximum("id").to_i%>
+
 <div>
     <% while last_id > 0 && Post.maximum("id").to_i - last_id < 10 %>
-        <div style='padding: 30px 0 0;'>
-            <% if Post.find_by(id:last_id)%>
-                <%= render partial: "posts/post_pattern", locals: { id: last_id}%>
-            <% end %>
-        </div>
+        <% if Post.find_by(id:last_id)%>
+            <%= render partial: "posts/post_pattern", locals: { id: last_id}%>
+        <% end %>
         <% last_id -= 1 %>
     <% end %>
     <a class="btn btn-primary login-button" href=<%= "/#{Post.maximum("id").to_i / 10}"%>>Следующая</a>

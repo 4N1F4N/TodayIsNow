@@ -1,34 +1,44 @@
-<% user = User.find(id)%>
+<% user = User.find_by(id:id)%>
 <div class = 'card'>
     <div class='card-body'>
-        <h5 class='card-title'><%= user.login%></h5>
-        <p class='card-text'><%= user.status%></p>
-        <p class='card-text'>Количество постов: <%= user.post.count %></p>
-        <% if session[:user_id] %>
-            <% user_session = User.find(session[:user_id]) %>
-            <% if user_session.can_change? %>
-                <% if user.status == 'reader' %>
-                    <form class = 'card' action = '/user/up_role' method = 'post'>
+        <% if user %>
+            <h5 class='card-title'><%= user.login%></h5>
+            <p class='card-text'><%= user.status%></p>
+            <p class='card-text'>Количество постов: <%= user.post.count %></p>
+            <% if session[:user_id] %>
+                <% user_session = User.find(session[:user_id]) %>
+                <% if user_session.can_change_role? %>
+                    <% if user.status == 'reader' %>
+                        <form class = 'card' action = '/user/up_role' method = 'post'>
+                            <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
+                            <input type = 'hidden' name = 'user_id' value = '<%=user.id%>'>
+                            <input type = 'hidden' name = 'user_session_id' value = '<%=user_session.id%>'>
+                            <input type = 'submit' name = 'submit' value = 'Повысить роль'>
+                        </form>
+                    <% elsif user.status == 'writer'%>
+                        <form class = 'card' action = '/user/down_role' method = 'post'>
+                            <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
+                            <input type = 'hidden' name = 'user_id' value = '<%=user.id%>'>
+                            <input type = 'hidden' name = 'user_session_id' value = '<%=user_session.id%>'>
+                            <input type = 'submit' name = 'submit' value = 'Понизить роль'>
+                        </form>
+                    <% end %>
+                <% end %>
+                <% if user_session == user %>
+                    <form class = 'card' action = '/user/logout' method = 'post'>
                         <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
-                        <input type = 'hidden' name = 'user_id' value = '<%=user.id%>'>
-                        <input type = 'hidden' name = 'user_session_id' value = '<%=user_session.id%>'>
-                        <input type = 'submit' name = 'submit' value = 'Повысить роль'>
+                        <input type = 'submit' name = 'submit' value = 'Выйти'>
                     </form>
-                <% elsif user.status == 'writer'%>
-                    <form class = 'card' action = '/user/down_role' method = 'post'>
+                <% end %>
+                <% if user_session.can_delete_user? %>
+                    <form class = 'card' action = <%= "/user/#{user.id}/delete"%> method = 'post'>
                         <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
-                        <input type = 'hidden' name = 'user_id' value = '<%=user.id%>'>
-                        <input type = 'hidden' name = 'user_session_id' value = '<%=user_session.id%>'>
-                        <input type = 'submit' name = 'submit' value = 'Понизить роль'>
+                        <input type = 'submit' name = 'submit' value = 'Удалить'>
                     </form>
                 <% end %>
             <% end %>
-            <% if user_session == user %>
-                <form class = 'card' action = '/user/logout' method = 'post'>
-                    <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
-                    <input type = 'submit' name = 'submit' value = 'Выйти'>
-                </form>
-            <% end %>
+        <% else %>
+            <h5 class='card-title'>Такого аккаунта не существует</h5>
         <% end %>
     </div>
 </div>

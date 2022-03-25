@@ -15,22 +15,21 @@
     <div class="container-fluid header-main">
       <ul class="nav justify-content-end">
         <% if session[:user_id] %>
-          <li class="nav-item">
+          <li class="nav-item" style = 'padding:  5px 0 5px 5px ;'>
             <a class="btn btn-primary login-button" href= <%="/user/#{session[:user_id]}"%>>Вы уже зашли</a>
           </li>
         <% end %>
-        <li class="nav-item">
-          <a class="btn btn-primary login-button" href="/">Главная</a>
+        <li class="nav-item" style = 'padding: 5px 0 5px 5px ;'>
+          <a class="btn btn-primary login-button" href=<%= main_path %>>Главная</a>
         </li>
-        <li class="nav-item">
-          <a class="btn btn-primary login-button" href="/user/create">Создать</a>
+        <li class="nav-item" style = 'padding: 5px 0 5px 5px ;'>
+          <a class="btn btn-primary login-button" href=<%= user_create_path %>>Создать</a>
         </li>
-        <li class="nav-item">
-          <a class="btn btn-primary login-button" href="/user/login">Войти</a>
-        </li>
+        <li class="nav-item" style = 'padding: 5px 0 5px 5px ;'>
+          <a class="btn btn-primary login-button" href=<%= user_login_path %>>Войти</a>
       </ul>
     </div>
-    <div style = 'padding: 0px 40%'>
+    <div style = 'padding: 0 40%;'>
       <%= yield %>
     </div>
   </body>

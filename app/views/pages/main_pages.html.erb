@@ -2,9 +2,7 @@
 <div>
     <% for id in 0..9 %>
         <% if Post.find_by(id:(new_id - id))%>
-            <div style='padding: 10px 0;'>
-                <%= render partial: "posts/post_pattern", locals: { id: (new_id - id)}%>
-            </div>
+            <%= render partial: "posts/post_pattern", locals: { id: (new_id - id)}%>
         <% end %>
     <% end %>
     <% if params[:id].to_i != @max_pages %>
@@ -12,5 +10,8 @@
     <% end %>
     <% if params[:id].to_i != 1 %>
         <a class="btn btn-primary login-button" href=<%= "/#{params[:id].to_i - 1}"%>>Следующая</a>
+    <% end %>
+    <% if params[:id].to_i == 1 %>
+        <a class="btn btn-primary login-button" href=<%= main_path %>>Вернуться на главную</a>
     <% end %>
 </div>

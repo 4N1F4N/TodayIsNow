@@ -1,5 +1,9 @@
-<% if session[:user_id]%>
-    <%= render partial: "posts/post_pattern", locals: { id: params[:id], user: User.find_by(id:session[:user_id]) }%>
-<% else %>
-    <%= render partial: "posts/post_pattern", locals: { id: params[:id] }%>
+<%= render partial: "posts/post_pattern", locals: { id: params[:id] }%>
+<% if session[:user_id] && User.find(session[:user_id]).can_change_post? && Post.find_by(id:params[:id])%>
+    <%= link_to 'Редактировать', "/post/#{params[:id]}/edit", class: "btn btn-outline-primary"%>
+    <form action = '/post/delete' method = 'post'>
+        <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
+        <input type = 'hidden' name = 'id' value = '<%=params[:id]%>'>
+        <input type = 'submit' class="btn btn-outline-primary" name = 'submit' value = 'Удалить'>
+    </form>
 <% end %>
