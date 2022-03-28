@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
     post '/:id/delete', to: 'users#delete'
 
+    get '/:id/edit', to: 'pages#user_edit', as: 'user_edit'
+    post '/:id/edit', to: 'users#edit'
+
     post '/up_role', to: 'users#up_role'
     post '/down_role', to: 'users#down_role'
 
@@ -20,10 +23,11 @@ Rails.application.routes.draw do
     get '/:id', to: 'pages#user_show', as: 'user'
   end
   scope '/post' do
+    get '/create', to: 'pages#post_create', as: 'post_create'
     post '/create', to: 'posts#create'
 
-    post '/:id/edit', to: 'posts#edit'
     get '/:id/edit', to: 'pages#post_edit', as: 'post_edit'
+    post '/:id/edit', to: 'posts#edit'
 
     post '/delete', to: 'posts#delete'
 

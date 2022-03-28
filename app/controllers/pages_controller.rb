@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
     def main
-
+        
     end
 
     def main_pages
@@ -13,7 +13,7 @@ class PagesController < ApplicationController
     end
 
     def post_show
-
+        
     end
 
     def user_create

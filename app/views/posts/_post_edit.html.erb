@@ -7,9 +7,9 @@
                     <h5 class = 'card-title'>Редактирование поста</h5>
                     <input type = 'hidden' name = 'authenticity_token' value = '<%= form_authenticity_token %>'>
                     <input type = 'hidden' name = 'post[id]' value = '<%= post.id %>'>
-                    <input type = 'heading' name = post[heading] value = <%= post.heading %>>
-                    <input type = 'text' name = post[text] value = <%= post.text %>><br>
-                    <input type = 'submit' name = 'submit' value = 'Поменять'>
+                    <input class = 'form-control' type = 'heading' name = post[heading] value = <%= post.heading %>>
+                    <textarea class = 'form-control' style="resize: none; height: 100px" type = 'text' name = post[text] placeholder = 'Текст' value = <%= post.heading %>></textarea>
+                    <input class = 'btn btn-primary' type = 'submit' name = 'submit' value = 'Поменять'>
                 </form>
             </div>
         </div>

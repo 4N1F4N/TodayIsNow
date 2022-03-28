@@ -1,0 +1,6 @@
+<div style='padding: 15px 0;'>
+    <%= render partial: "posts/post_create", locals: { id: params[:id]}%>
+</div>
+<% if flash[:alert] %>
+    <%= render partial: "errors/alert", locals: { alert: flash[:alert] }%>
+<% end %>

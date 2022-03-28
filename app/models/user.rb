@@ -24,18 +24,28 @@ class User < ApplicationRecord
         return false
     end
 
+    def can_create_post?
+        return true if self.status != 'reader'
+        return false
+    end
+
     def can_change_post?
         return true if self.status != 'reader'
         return false
     end
 
-    def authenticate(password)
-        return true if self.password = password
+    def can_change_user?
+        return true if self.status == 'admin'
         return false
     end
 
     def can_delete_user?
         return true if self.status == 'admin'
+        return false
+    end
+
+    def authenticate(password)
+        return true if self.password = password
         return false
     end
 

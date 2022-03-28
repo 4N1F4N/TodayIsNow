@@ -12,22 +12,22 @@
   </head>
 
   <body style = 'text-align: center'>
-    <div class="container-fluid header-main">
-      <ul class="nav justify-content-end">
-        <% if session[:user_id] %>
-          <li class="nav-item" style = 'padding:  5px 0 5px 5px ;'>
-            <a class="btn btn-primary login-button" href= <%="/user/#{session[:user_id]}"%>>Вы уже зашли</a>
-          </li>
-        <% end %>
-        <li class="nav-item" style = 'padding: 5px 0 5px 5px ;'>
-          <a class="btn btn-primary login-button" href=<%= main_path %>>Главная</a>
-        </li>
-        <li class="nav-item" style = 'padding: 5px 0 5px 5px ;'>
-          <a class="btn btn-primary login-button" href=<%= user_create_path %>>Создать</a>
-        </li>
-        <li class="nav-item" style = 'padding: 5px 0 5px 5px ;'>
-          <a class="btn btn-primary login-button" href=<%= user_login_path %>>Войти</a>
-      </ul>
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <div class="nav-brand">
+          <a class="btn btn-primary me-2" href=<%= main_path %>>Главная</a>
+        </div>
+        <div class="d-flex">
+          <% if session[:user_id] %>
+              <a class="btn btn-primary me-2" href= <%="/user/#{session[:user_id]}"%>>Вы уже зашли</a>
+          <% end %>
+          <% if session[:user_id] && User.find_by(id:session[:user_id]).can_create_post? %>
+              <a class="btn btn-primary me-2" href= <%="/post/create"%>>Создать пост</a>
+          <% end %>
+            <a class="btn btn-primary me-2" href=<%= user_create_path %>>Создать</a>
+            <a class="btn btn-primary me-2" href=<%= user_login_path %>>Войти</a>
+        </div>
+      </div>
     </div>
     <div style = 'padding: 0 40%;'>
       <%= yield %>

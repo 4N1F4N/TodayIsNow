@@ -1,11 +1,11 @@
-<div class = 'card'>
+<div class = 'card' style='resize: none; width: 400px;'>
     <div class='card-body'>
         <form action = '/post/create' method = 'post'>
             <h5 class='card-title'>Создать пост</h5>
             <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
-            <input type = 'heading' name = post[heading] placeholder = 'Заголовок'>
-            <input type = 'text' name = post[text] placeholder = 'Текст'><br>
-            <input type = 'submit' name = 'submit' value = 'Создать'>
+            <input class = 'form-control' type = 'heading' name = post[heading] placeholder = 'Заголовок'>
+            <textarea class = 'form-control' style="resize: none; height: 100px" type = 'text' name = post[text] placeholder = 'Текст'></textarea>
+            <input class = 'btn btn-primary' type = 'submit' name = 'submit' value = 'Создать'>
         </form>
     </div>
 </div>

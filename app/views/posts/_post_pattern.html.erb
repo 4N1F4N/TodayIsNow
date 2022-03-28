@@ -5,8 +5,14 @@
             <% if post %>
                 <h5 class='card-title'><%= post.heading%></h5>
                 <p class='card-text'><%= post.text%></p>
-                <%= link_to 'Ссылка', "/post/#{post.id}", class: "link-dark" %>
-                <p>Пост от: <%= link_to "#{User.find(post.user_id).login}", "/user/#{post.user_id}", class: "link-secondary" %></p>
+                <div class='row g-0'>
+                    <div class='col'>
+                        <p><%= link_to 'Ссылка', "/post/#{post.id}", class: "link-dark" %></p>
+                    </div>
+                    <div class='col'>
+                        <p><%= link_to "#{User.find(post.user_id).login}", "/user/#{post.user_id}", class: "link-secondary" %></p>
+                    </div>
+                </div>
                 <p class='card-text'><%= post.created_at%></p>
                 <!--p class='card-text'><%= post.updated_at%></p-->
             <% else %>

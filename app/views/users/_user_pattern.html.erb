@@ -13,27 +13,32 @@
                             <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
                             <input type = 'hidden' name = 'user_id' value = '<%=user.id%>'>
                             <input type = 'hidden' name = 'user_session_id' value = '<%=user_session.id%>'>
-                            <input type = 'submit' name = 'submit' value = 'Повысить роль'>
+                            <input class = 'btn btn-primary' type = 'submit' name = 'submit' value = 'Повысить роль'>
                         </form>
                     <% elsif user.status == 'writer'%>
                         <form class = 'card' action = '/user/down_role' method = 'post'>
                             <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
                             <input type = 'hidden' name = 'user_id' value = '<%=user.id%>'>
                             <input type = 'hidden' name = 'user_session_id' value = '<%=user_session.id%>'>
-                            <input type = 'submit' name = 'submit' value = 'Понизить роль'>
+                            <input class = 'btn btn-primary' type = 'submit' name = 'submit' value = 'Понизить роль'>
                         </form>
                     <% end %>
                 <% end %>
+                <% if user_session.can_change_user? %>
+                    <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>' >
+                    <input type = 'hidden' name = 'id' value = '<%=params[:id]%>'>
+                    <%= link_to 'Редактировать', "/user/#{params[:id]}/edit", class: "btn btn-primary"%>
+                <% end %>
                 <% if user_session == user %>
-                    <form class = 'card' action = '/user/logout' method = 'post'>
+                    <form action = '/user/logout' method = 'post'>
                         <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
-                        <input type = 'submit' name = 'submit' value = 'Выйти'>
+                        <input class = 'btn btn-primary' type = 'submit' name = 'submit' value = 'Выйти'>
                     </form>
                 <% end %>
                 <% if user_session.can_delete_user? %>
-                    <form class = 'card' action = <%= "/user/#{user.id}/delete"%> method = 'post'>
+                    <form action = <%= "/user/#{user.id}/delete"%> method = 'post'>
                         <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
-                        <input type = 'submit' name = 'submit' value = 'Удалить'>
+                        <input class = 'btn btn-primary' type = 'submit' name = 'submit' value = 'Удалить'>
                     </form>
                 <% end %>
             <% end %>

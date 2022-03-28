@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
     def create
-        if user_params[:login].blank? || user_params[:password].blank?
-            flash[:alert] = ['Пустой логин и/или пароль']
+        if user_params[:login].blank?
+            flash[:alert] = ['Пустой логин']
+            redirect_to user_create_path
+        elsif user_params[:password].blank?
+            flash[:alert] = ['Пустой пароль']
             redirect_to user_create_path
         elsif user_params[:password] == user_params[:password_confirmation]
             user = User.new(login:user_params[:login], password:user_params[:password])
@@ -14,6 +19,21 @@ class UsersController < ApplicationController
         else
             flash[:alert] = ["Подверждение пароля не совпадает с паролем"]
             redirect_to user_create_path
+        end
+    end
+
+    def edit
+        if user_edit_params[:login].blank?
+            flash[:alert] = ['Пустой логин']
+            redirect_to user_edit_path
+        elsif user_edit_params[:password].blank?
+            flash[:alert] = ['Пустой пароль']
+            redirect_to user_edit_path
+        else
+            user = User.find(user_edit_params[:id])
+            return redirect_to user if user.update(login:user_params[:login], password:user_params[:password])
+            flash[:alert] = user.errors.full_messages
+            return redirect_to user_edit_path
         end
     end
     
@@ -66,6 +86,10 @@ class UsersController < ApplicationController
     private 
         def user_params
             params.require(:user).permit(:login, :password, :password_confirmation)
+        end
+
+        def user_edit_params
+            params.require(:user).permit(:login, :password, :id)
         end
 
         def change_role_params
