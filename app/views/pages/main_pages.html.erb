@@ -1,7 +1,8 @@
 <% new_id = Post.maximum("id").to_i - (@max_pages - params[:id].to_i) * 10 %>
 <div>
     <% for id in 0..9 %>
-        <% if Post.find_by(id:(new_id - id))%>
+        <% post = Post.find_by(id:(new_id - id))%>
+        <% if post && post.can_open?%>
             <%= render partial: "posts/post_pattern", locals: { id: (new_id - id)}%>
         <% end %>
     <% end %>

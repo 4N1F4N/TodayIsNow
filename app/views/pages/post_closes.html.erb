@@ -1,7 +1,7 @@
-<% if session[:user_id] && User.find_by(id:session[:user_id]).can_create_post? %>
-    <div style='padding: 15px 0;'>
-        <%= render partial: "posts/post_create", locals: { id: params[:id]}%>
-    </div>
+<% if User.find_by(id:session[:user_id]).can_see_closes_posts? %>
+    <% @posts.each do |post| %>
+      <%= render partial: "posts/post_pattern", locals: { id: post.id }%>
+    <% end %>
 <% else %>
     <div style='padding: 10px 0;'>
         <div class = 'card'>

@@ -1,23 +1,35 @@
 <% post = Post.find_by(id:id) %>
-<div style='padding: 10px 0;'>
-    <div class = 'card'>
-        <div class='card-body'>
-            <% if post %>
-                <h5 class='card-title'><%= post.heading%></h5>
-                <p class='card-text'><%= post.text%></p>
-                <div class='row g-0'>
-                    <div class='col'>
-                        <p><%= link_to 'Ссылка', "/post/#{post.id}", class: "link-dark" %></p>
+<% if post %>
+    <div style='padding: 10px 0;'>
+        <div class = 'card'>
+            <div class='card-body'>
+                <% if post.can_open? || User.find_by(id:session[:user_id]).can_see_closes_posts? %>
+                    <h5 class='card-title'><%= post.heading%></h5>
+                    <p class='card-text'><%= post.text%></p>
+                    <p class='card-text'><%= post.status%></p>
+                    <div class='row g-0'>
+                        <div class='col'>
+                            <p><%= link_to 'Ссылка', "/post/#{post.id}", class: "link-dark" %></p>
+                        </div>
+                        <div class='col'>
+                            <p><%= link_to "#{User.find(post.user_id).login}", "/user/#{post.user_id}", class: "link-secondary" %></p>
+                        </div>
                     </div>
-                    <div class='col'>
-                        <p><%= link_to "#{User.find(post.user_id).login}", "/user/#{post.user_id}", class: "link-secondary" %></p>
-                    </div>
-                </div>
-                <p class='card-text'><%= post.created_at%></p>
-                <!--p class='card-text'><%= post.updated_at%></p-->
-            <% else %>
-                <h5 class='card-title'>Такой пост не существует</h5>
-            <% end %>
+                    <p class='card-text'><%= post.created_at%></p>
+                    <% if User.find_by(id:session[:user_id]).can_change_post? %>
+                        <%= link_to 'Редактировать', "/post/#{post.id}/edit", class: "btn btn-outline-primary"%>
+                        <form action = '/post/delete' method = 'post'>
+                            <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
+                            <input type = 'hidden' name = 'id' value = '<%=id%>'>
+                            <input type = 'submit' class="btn btn-outline-primary" name = 'submit' value = 'Удалить'>
+                        </form>
+                    <% end %>
+                <% else %>
+                    <h5 class='card-title'>Недостаточно прав</h5>
+                <% end %>
+            </div>
         </div>
     </div>
-</div>
+<% else %>
+    <h5 class='card-title'>Такой пост не существует</h5>
+<% end %>

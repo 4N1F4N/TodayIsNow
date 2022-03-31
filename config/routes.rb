@@ -31,6 +31,8 @@ Rails.application.routes.draw do
 
     post '/delete', to: 'posts#delete'
 
+    get '/closes', to: 'pages#post_closes'
+
     get '/:id', to: 'pages#post_show', as: 'post'
   end
 end

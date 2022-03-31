@@ -15,6 +15,11 @@ class Post < ApplicationRecord
   def self.human_attribute_name(attr, options={})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
+
+  def can_open?
+    return true if self.status == 'open'
+    return false
+  end
   
   private
     def check_user

@@ -8,7 +8,11 @@
                     <input type = 'hidden' name = 'authenticity_token' value = '<%= form_authenticity_token %>'>
                     <input type = 'hidden' name = 'post[id]' value = '<%= post.id %>'>
                     <input class = 'form-control' type = 'heading' name = post[heading] value = <%= post.heading %>>
-                    <textarea class = 'form-control' style="resize: none; height: 100px" type = 'text' name = post[text] placeholder = 'Текст' value = <%= post.heading %>></textarea>
+                    <textarea class = 'form-control' style="resize: none; height: 100px" type = 'text' name = post[text] placeholder = 'Текст'><%= post.text %></textarea>
+                    <select name = 'status'>
+                        <option value = 'close'>Закрытый</option>
+                        <option value = 'open'>Открытый</option>
+                    </select>
                     <input class = 'btn btn-primary' type = 'submit' name = 'submit' value = 'Поменять'>
                 </form>
             </div>

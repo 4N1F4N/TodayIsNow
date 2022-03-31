@@ -17,6 +17,11 @@
         <div class="nav-brand">
           <a class="btn btn-primary me-2" href=<%= main_path %>>Главная</a>
         </div>
+        <% if User.find_by(id:session[:user_id]).can_see_closes_posts? %>
+          <div class="collapse navbar-collapse">
+            <a class="btn btn-primary me-2" href= <%="/post/closes"%>>Закрытые посты</a>
+          </div>
+        <% end %>
         <div class="d-flex">
           <% if session[:user_id] %>
               <a class="btn btn-primary me-2" href= <%="/user/#{session[:user_id]}"%>>Вы уже зашли</a>

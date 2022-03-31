@@ -44,8 +44,13 @@ class User < ApplicationRecord
         return false
     end
 
+    def can_see_closes_posts?
+        return true if self.status != 'reader'
+        return false
+    end
+
     def authenticate(password)
-        return true if self.password = password
+        return true if self.password == password
         return false
     end
 

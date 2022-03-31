@@ -16,6 +16,10 @@ class PagesController < ApplicationController
         
     end
 
+    def post_closes
+        @posts = Post.where(status: "close")
+    end
+
     def user_create
 
     end

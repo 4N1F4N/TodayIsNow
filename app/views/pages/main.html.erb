@@ -2,7 +2,8 @@
 
 <div>
     <% while last_id > 0 && Post.maximum("id").to_i - last_id < 10 %>
-        <% if Post.find_by(id:last_id)%>
+        <% post = Post.find_by(id:last_id)%>
+        <% if post && post.can_open? %>
             <%= render partial: "posts/post_pattern", locals: { id: last_id}%>
         <% end %>
         <% last_id -= 1 %>
