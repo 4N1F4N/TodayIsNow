@@ -3,7 +3,7 @@
     <div style='padding: 10px 0;'>
         <div class = 'card'>
             <div class='card-body'>
-                <% if post.can_open? || User.find_by(id:session[:user_id]).can_see_closes_posts? %>
+                <% if post.can_open? || (session[:user_id] && User.find_by(id:session[:user_id]).can_see_closes_posts?) %>
                     <h5 class='card-title'><%= post.heading%></h5>
                     <p class='card-text'><%= post.text%></p>
                     <p class='card-text'><%= post.status%></p>
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <p class='card-text'><%= post.created_at%></p>
-                    <% if User.find_by(id:session[:user_id]).can_change_post? %>
+                    <% if session[:user_id] && User.find_by(id:session[:user_id]).can_change_post? %>
                         <%= link_to 'Редактировать', "/post/#{post.id}/edit", class: "btn btn-outline-primary"%>
                         <form action = '/post/delete' method = 'post'>
                             <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
