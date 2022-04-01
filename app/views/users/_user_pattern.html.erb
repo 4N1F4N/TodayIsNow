@@ -9,14 +9,14 @@
                 <% user_session = User.find(session[:user_id]) %>
                 <% if user_session.can_change_role? %>
                     <% if user.status == 'reader' %>
-                        <form class = 'card' action = '/user/up_role' method = 'post'>
+                        <form action = '/user/up_role' method = 'post'>
                             <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
                             <input type = 'hidden' name = 'user_id' value = '<%=user.id%>'>
                             <input type = 'hidden' name = 'user_session_id' value = '<%=user_session.id%>'>
                             <input class = 'btn btn-primary' type = 'submit' name = 'submit' value = 'Повысить роль'>
                         </form>
                     <% elsif user.status == 'writer'%>
-                        <form class = 'card' action = '/user/down_role' method = 'post'>
+                        <form action = '/user/down_role' method = 'post'>
                             <input type = 'hidden' name = 'authenticity_token' value = '<%=form_authenticity_token%>'>
                             <input type = 'hidden' name = 'user_id' value = '<%=user.id%>'>
                             <input type = 'hidden' name = 'user_session_id' value = '<%=user_session.id%>'>

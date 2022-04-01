@@ -1,11 +1,9 @@
 <% last_id = Post.maximum("id").to_i %>
-<% post_count = 0 %>
 <div>
-    <% while last_id > 0 && post_count < 10 %>
+    <% while last_id > 0 %>
         <% post = Post.find_by(id:last_id)%>
-        <% if post && post.can_open? %>
+        <% if post && (post.can_open? || (session[:user_id] && User.find_by(id:session[:user_id]).can_see_closes_posts?))%>
             <%= render partial: "posts/post_pattern", locals: { id: last_id}%>
-            <% post_count += 1%>
         <% end %>
         <% last_id -= 1 %>
     <% end %>

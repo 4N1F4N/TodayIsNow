@@ -44,6 +44,11 @@ class User < ApplicationRecord
         return false
     end
 
+    def can_delete_post?
+        return true if self.status != 'reader'
+        return false
+    end
+
     def can_see_closes_posts?
         return true if self.status != 'reader'
         return false

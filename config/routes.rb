@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root 'pages#main', as: 'main'
 
-  get '/:id', to: 'pages#main_pages'
-
   scope '/user' do
+    get '/all', to: 'pages#all_users', as: 'all_users'
+
     get '/create', to: 'pages#user_create', as: 'user_create'
     post '/create', to: 'users#create'
 
@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     get '/:id', to: 'pages#user_show', as: 'user'
   end
   scope '/post' do
+    get '/all', to: 'pages#all_posts', as: 'all_posts'
+
     get '/create', to: 'pages#post_create', as: 'post_create'
     post '/create', to: 'posts#create'
 
@@ -31,7 +33,7 @@ Rails.application.routes.draw do
 
     post '/delete', to: 'posts#delete'
 
-    get '/closes', to: 'pages#post_closes'
+    get '/closes', to: 'pages#post_closes', as: 'post_closes'
 
     get '/:id', to: 'pages#post_show', as: 'post'
   end

@@ -10,8 +10,13 @@
                     <input class = 'form-control' type = 'heading' name = post[heading] value = <%= post.heading %>>
                     <textarea class = 'form-control' style="resize: none; height: 100px" type = 'text' name = post[text] placeholder = 'Текст'><%= post.text %></textarea>
                     <select name = 'status'>
-                        <option value = 'close'>Закрытый</option>
-                        <option value = 'open'>Открытый</option>
+                        <% if post.can_open? %>
+                            <option value = 'open'>Открытый</option>
+                            <option value = 'close'>Закрытый</option>
+                        <% else %>
+                            <option value = 'close'>Закрытый</option>
+                            <option value = 'open'>Открытый</option>
+                        <% end %>
                     </select>
                     <input class = 'btn btn-primary' type = 'submit' name = 'submit' value = 'Поменять'>
                 </form>

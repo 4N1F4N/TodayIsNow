@@ -3,9 +3,8 @@ class PagesController < ApplicationController
         
     end
 
-    def main_pages
-        @max_pages = Post.maximum("id").to_i / 10 + 1
-        redirect_to main_path if params[:id].to_i == 0 || params[:id].to_i > @max_pages
+    def all_posts
+        @posts = Post.all
     end
 
     def user_show

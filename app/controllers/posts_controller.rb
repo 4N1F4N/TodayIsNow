@@ -22,8 +22,10 @@ class PostsController < ApplicationController
     end
 
     def delete 
-        post = Post.find(params[:id])
-        post.delete
+        if session[:user_id] && User.find_by(id:session[:user_id]).can_delete_post?
+            post = Post.find(params[:id])
+            post.delete
+        end
         redirect_to main_path
     end
     

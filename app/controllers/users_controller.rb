@@ -25,16 +25,14 @@ class UsersController < ApplicationController
     def edit
         if user_edit_params[:login].blank?
             flash[:alert] = ['Пустой логин']
-            redirect_to user_edit_path
         elsif user_edit_params[:password].blank?
             flash[:alert] = ['Пустой пароль']
-            redirect_to user_edit_path
-        else
+        elsif session[:user_id] && User.find_by(id:session[:user_id]).can_change_user?
             user = User.find(user_edit_params[:id])
             return redirect_to user if user.update(login:user_params[:login], password:user_params[:password])
             flash[:alert] = user.errors.full_messages
-            return redirect_to user_edit_path
         end
+        redirect_to user_edit_path
     end
     
     def login
@@ -76,10 +74,12 @@ class UsersController < ApplicationController
     end
 
     def delete
-        user = User.find(params[:id])
-        Post.where(user_id: user.id).delete_all
-        session.delete(:user_id) if user.id == session[:user_id]
-        user.delete
+        if session[:user_id] && User.find_by(id:session[:user_id]).can_delete_user?
+            user = User.find(params[:id])
+            Post.where(user_id: user.id).delete_all
+            session.delete(:user_id) if user.id == session[:user_id]
+            user.delete
+        end
         redirect_to main_path
     end
 

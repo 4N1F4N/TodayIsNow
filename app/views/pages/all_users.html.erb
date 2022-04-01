@@ -1,0 +1,20 @@
+<% last_id = Post.maximum("id").to_i %>
+<div>
+    <% if session[:user_id] && User.find_by(id:session[:user_id]).can_change_user? %>
+        <% while last_id > 0 %>
+            <% user = User.find_by(id:last_id)%>
+            <% if user %>
+                <%= render partial: "users/user_pattern", locals: { id: last_id}%>
+            <% end %>
+            <% last_id -= 1 %>
+        <% end %>
+    <% else %>
+        <div style='padding: 10px 0;'>
+            <div class = 'card'>
+                <div class='card-body'>
+                    <h5 class='card-title'>Недостаточно прав</h5>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
