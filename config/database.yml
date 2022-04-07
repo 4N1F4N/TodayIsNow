@@ -23,9 +23,8 @@ default: &default
 
 development:
   adapter: postgresql
-  database: news
-  username: tolya
-  password: Tolya
+  database: user
+  username: user
   pool: 5
   timeout: 5000
 
@@ -61,9 +60,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   adapter: postgresql
-  database: news
-  username: tolya
-  password: Tolya
+  database: user
+  username: user
   pool: 5
   timeout: 5000
 
